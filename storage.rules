@@ -1,0 +1,15 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Cho đọc công khai avatar (để hiển thị ảnh), và chỉ chủ tài khoản được ghi
+    match /avatar/{uid}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Chặn các đường dẫn khác (tùy bạn, có thể nới nếu cần)
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
