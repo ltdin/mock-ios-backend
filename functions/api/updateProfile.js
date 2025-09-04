@@ -11,7 +11,7 @@ const fs = require("fs");
 const Busboy = require("busboy");
 const { randomBytes } = require("crypto");
 
-exports.apiUpdateProfile = onRequest(async (req, res) => {
+exports.apiUpdateProfile = onRequest({ invoker: "public" }, async (req, res) => {
   setCors(res);
   if (req.method === "OPTIONS") return res.status(204).send("");
   if (req.method !== "POST") return res.status(405).send("Method Not Allowed");

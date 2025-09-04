@@ -4,7 +4,7 @@ const { admin, db } = require("../utils/firebase");
 const { requireAuth } = require("../utils/auth");
 const { setCors } = require("../utils/http");
 
-exports.apiSignOut = onRequest(async (req, res) => {
+exports.apiSignOut = onRequest({ invoker: "public" }, async (req, res) => {
   setCors(res);
   if (req.method === "OPTIONS") return res.status(204).send("");
   if (req.method !== "POST") return res.status(405).send("Method Not Allowed");

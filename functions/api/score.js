@@ -5,7 +5,7 @@ const { requireAuth } = require("../utils/auth");
 const { LEVEL_IDS } = require("../utils/constants");
 const { isBetterScore, calcTotalScore, nextUnlockedLevel } = require("../utils/scoring");
 
-exports.apiSubmitScore = onRequest(async (req, res) => {
+exports.apiSubmitScore = onRequest({ invoker: "public" }, async (req, res) => {
   if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
 
   const decoded = await requireAuth(req, res);

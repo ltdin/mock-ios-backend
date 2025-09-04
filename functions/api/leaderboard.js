@@ -2,10 +2,9 @@ const { onRequest } = require("firebase-functions/v2/https");
 const { db } = require("../utils/firebase");
 const { LEVEL_IDS } = require("../utils/constants");
 
-exports.apiLeaderboardTotal = onRequest(async (req, res) => {
+exports.apiLeaderboardTotal = onRequest({ invoker: "public" }, async (req, res) => {
   if (req.method !== "GET") return res.status(405).send("Method Not Allowed");
   const limit = Math.min(parseInt(req.query.limit) || 50, 100);
-
   try {
     const qs = await db.collection("leaderboards_total")
       .orderBy("totalScore", "desc").limit(limit).get();
@@ -16,15 +15,13 @@ exports.apiLeaderboardTotal = onRequest(async (req, res) => {
   }
 });
 
-exports.apiLeaderboardLevel = onRequest(async (req, res) => {
+exports.apiLeaderboardLevel = onRequest({ invoker: "public" }, async (req, res) => {
   if (req.method !== "GET") return res.status(405).send("Method Not Allowed");
   const levelId = String(req.query.levelId || "");
   const limit = Math.min(parseInt(req.query.limit) || 50, 100);
-
   if (!LEVEL_IDS.includes(levelId)) {
     return res.status(400).json({ error: "Invalid levelId" });
   }
-
   try {
     const qs = await db.collection("leaderboards_level")
       .doc(levelId).collection("entries")

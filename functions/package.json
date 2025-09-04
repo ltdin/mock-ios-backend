@@ -1,9 +1,9 @@
 {
   "name": "functions",
   "description": "Cloud Functions for Firebase",
+  "type": "commonjs",
   "scripts": {
     "seed:levels": "node scripts/seed-levels.js",
-    "lint": "eslint .",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
@@ -19,10 +19,6 @@
     "firebase-admin": "^12.7.0",
     "firebase-functions": "^6.4.0"
   },
-  "devDependencies": {
-    "eslint": "^8.15.0",
-    "eslint-config-google": "^0.14.0",
-    "firebase-functions-test": "^3.1.0"
-  },
+  "devDependencies": {},
   "private": true
 }

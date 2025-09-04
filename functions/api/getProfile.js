@@ -2,7 +2,7 @@ const { onRequest } = require("firebase-functions/v2/https");
 const { db } = require("../utils/firebase");
 const { requireAuth } = require("../utils/auth");
 
-exports.apiProfile = onRequest(async (req, res) => {
+exports.apiProfile = onRequest({ invoker: "public" }, async (req, res) => {
   if (req.method !== "GET") return res.status(405).send("Method Not Allowed");
   const decoded = await requireAuth(req, res);
   if (!decoded) return;
